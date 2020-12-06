@@ -14,25 +14,22 @@ const binSearch = (characters) => {
 };
 
 const main = (fs, console) => {
-  const input = fs
+  const ids = fs
     .readFileSync("input5.txt", { encoding: "utf-8" })
     .split("\n")
     .slice(0, -1)
     .map((curr) => {
       const directions = curr.split("");
-      return {
-        rows: directions.slice(0, 7),
-        cols: directions.slice(7),
-      };
+      const row = binSearch(directions.slice(0, 7));
+      const col = binSearch(directions.slice(7));
+      return 8 * row + col;
     });
-  const ids = input.map((curr) => {
-    const row = binSearch(curr.rows);
-    const col = binSearch(curr.cols);
-    return 8 * row + col;
-  });
   const idSet = new Set(ids);
+  const maxId = Math.max(...ids);
+  console.log("largest id number: ", maxId);
   console.log(
-    Array(Math.max(...ids))
+    "My id: ",
+    Array(maxId)
       .fill()
       .map((_, idx) => idx)
       .filter((curr, idx) => !idSet.has(idx))
