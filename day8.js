@@ -16,13 +16,13 @@ const main = () => {
   let acc = 0;
   let index = 0;
   while (true) {
-    let instruction = instructions[index];
-    if (instruction.visited) break;
-    instruction.visited = true;
-    if (instruction.instruction === "nop") ++index;
-    else if (instruction.instruction === "jmp") index += instruction.num;
-    else if (instruction.instruction === "acc") {
-      acc += instruction.num;
+    let { instruction, visited, num } = instructions[index];
+    if (visited) break;
+    instructions[index].visited = true;
+    if (instruction === "nop") ++index;
+    else if (instruction === "jmp") index += num;
+    else if (instruction === "acc") {
+      acc += num;
       ++index;
     } else throw "invalid instruction";
   }
